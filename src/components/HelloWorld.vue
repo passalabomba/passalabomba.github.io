@@ -29,7 +29,7 @@ export default {
     seconds: null,
     letterSet: null,
     timer: null,
-    alarm: "https://assets.mixkit.co/sfx/preview/mixkit-facility-alarm-908.mp3",
+    alarm: "src\assets\alarm.mp3",
   }),
   methods: {
     setTimer: function (min = 0.3, max = 4) {
