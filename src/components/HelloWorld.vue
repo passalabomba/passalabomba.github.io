@@ -13,7 +13,7 @@
       <v-col class="mb-4">
         <h1 class="display-2 font-weight-bold mb-3">{{this.letterSet}}</h1>
         <h1 class="display-2 font-weight-bold mb-3">{{this.seconds}}</h1>
-        <v-btn color="primary" @click="startSession()"> GO! </v-btn><BR>
+        <v-btn color="primary" @click="startSession()"> GO! </v-btn>
         <v-btn color="error" @click="stopSession()"> STOP </v-btn>
       </v-col>
     </v-row>
@@ -28,8 +28,7 @@ export default {
     words: words_from_file,
     seconds: null,
     letterSet: null,
-    timer: null,
-    alarm: "src/assets/alarm.mp3",
+    timer: null
   }),
   methods: {
     setTimer: function (min = 0.3, max = 4) {
