@@ -22,6 +22,7 @@
 
 <script>
 import words_from_file from "@/assets/words.json";
+import Popup from '@components/Popup.vue';
 export default {
   name: "HelloWorld",
   data: () => ({
@@ -30,6 +31,9 @@ export default {
     letterSet: null,
     timer: null
   }),
+  components:{
+    Popup
+  }
   methods: {
     setTimer: function (min = 0.3, max = 4) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
