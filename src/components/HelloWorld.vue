@@ -35,7 +35,7 @@ export default {
     Popup
   }
   methods: {
-    setTimer: function (min = 0.3, max = 4) {
+    setTimer: function (min = 20, max = 300) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
       console.log("Wait for " + rand + " seconds");
       this.seconds = rand;
@@ -50,7 +50,7 @@ export default {
     },
     startSession: function () {
       this.letterSet = this.getRandomWord();
-      this.setTimer(20,300);
+      this.setTimer(10,12);
     },
     stopSession: function () {
       clearTimeout(this.timer);
