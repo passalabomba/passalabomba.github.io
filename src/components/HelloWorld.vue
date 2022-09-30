@@ -54,7 +54,7 @@ export default {
       this.letterSet = ""
     },
     playSound: function () {
-      var audio = new Audio(this.alarm);
+      var audio = new Audio('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3');
       audio.play();
     },
   },
