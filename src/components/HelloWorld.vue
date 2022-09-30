@@ -21,19 +21,17 @@
 </template>
 
 <script>
-import words_from_file from "@/assets/words.json";
-import Popup from '@components/Popup.vue';
+import words_from_file from '@/assets/words.json'
+import audio_file from '@/assets/alarm.mp3'
 export default {
   name: "HelloWorld",
   data: () => ({
     words: words_from_file,
     seconds: null,
     letterSet: null,
-    timer: null
+    timer: null,
+    audio: null
   }),
-  components:{
-    Popup
-  }
   methods: {
     setTimer: function (min = 20, max = 300) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
@@ -53,12 +51,13 @@ export default {
       this.setTimer(10,12);
     },
     stopSession: function () {
+      this.audio.pause()
       clearTimeout(this.timer);
       this.letterSet = ""
     },
     playSound: function () {
-      var audio = new Audio('https://drive.google.com/file/d/12__s9cRu3MB62Cv3DQVmi5Zht8K2OXhS/view?usp=sharing');
-      audio.play();
+      this.audio = new Audio(audio_file);
+      this.audio.play();
     },
   },
 };
