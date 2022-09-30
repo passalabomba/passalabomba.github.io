@@ -5,13 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && cd ./dist && cp index.html 404.html"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vuetify": "^2.6.0",
-    "deploy": "npm run build && cd ./dist && cp index.html 404.html"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
