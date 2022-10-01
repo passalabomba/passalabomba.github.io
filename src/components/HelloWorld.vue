@@ -36,7 +36,7 @@ export default {
     setTimer: function (min = 20, max = 300) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
       console.log("Wait for " + rand + " seconds");
-      this.seconds = rand;
+      //this.seconds = rand;
       this.timer = setTimeout(this.timerEvent, rand * 1000);
     },
     timerEvent: function () {
@@ -48,7 +48,8 @@ export default {
     },
     startSession: function () {
       this.letterSet = this.getRandomWord();
-      this.setTimer(10,12);
+      this.setTimer(10,300);
+      this.audio = new Audio(audio_file);
     },
     stopSession: function () {
       this.audio.pause()
@@ -56,7 +57,6 @@ export default {
       this.letterSet = ""
     },
     playSound: function () {
-      this.audio = new Audio(audio_file);
       this.audio.play();
     },
   },
