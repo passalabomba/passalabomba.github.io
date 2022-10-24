@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import words_from_file from '@/assets/words.json'
+import words_from_file from '@/assets/letters.json'
 import audio_file from '@/assets/alarm.mp3'
 import SettingsPanel from './SettingsPanel.vue'
 import store from '../store';
