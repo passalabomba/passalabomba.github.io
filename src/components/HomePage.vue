@@ -48,7 +48,8 @@ export default {
     audio: null,
     dialog: false,
     minSeconds: 20,
-    maxSeconds: 300
+    maxSeconds: 300,
+    color: '#44B987'
   }),
   methods: {
     setTimer: function (min = 20, max = 300) {
@@ -56,6 +57,7 @@ export default {
       console.log("Wait for " + rand + " seconds");
       //this.seconds = rand;
       this.timer = setTimeout(this.timerEvent, rand * 1000);
+
     },
     timerEvent: function () {
       console.log("è scaduto il timer");
@@ -66,7 +68,8 @@ export default {
     },
     startSession: function () {
       this.letterSet = this.getRandomWord();
-      this.setTimer(store.getters.minSecondsVal,store.getters.minSecondsVal);
+      this.setTimer(store.getters.minSecondsVal,store.getters.maxSecondsVal);
+      console.log(this.timer);
       this.audio = new Audio(audio_file);
     },
     stopSession: function () {
