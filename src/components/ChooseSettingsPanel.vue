@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn  x-large icon v-bind="attrs" v-on="on" color="grey">
+      <v-btn  x-large icon v-bind="attrs" v-on="on" color="white">
         <v-icon>mdi-cog</v-icon>
       </v-btn>
     </template>
@@ -71,7 +71,7 @@
 import store from '../store';
 
 export default {
- mounted() {
+ created() {
     this.min = store.getters.minSecondsVal
     this.max = store.getters.maxSecondsVal
   },
@@ -87,8 +87,15 @@ export default {
       if (this.checkValidity() == true) {
         this.dialog = false;
         this.errorAlertVisible = false;
-        store.commit("changeMinSeconds", this.min, this.max);
+        store.commit("changeMinSeconds", this.min);
+        store.commit("changeMaxSeconds", this.max);
 
+        console.log('Settati nuovi min e max');
+        console.log(this.min+'');
+        console.log(this.max+'');
+        
+        console.log(store.getters.minSecondsVal);
+        console.log(store.getters.maxSecondsVal);
       }
     },
     checkValidity: function () {

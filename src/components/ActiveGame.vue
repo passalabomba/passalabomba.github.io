@@ -66,6 +66,9 @@ export default {
   components: {
     //'settngs-panel':SettingsPanel,
   },
+  mounted() {
+      this.startSession();
+  },
   data: () => ({
     words: words_from_file,
     seconds: null,
@@ -80,9 +83,6 @@ export default {
     color: "#44B987",
   }),
   methods: {
-    mounted() {
-      this.startSession();
-    },
     setTimer: function (min = 20, max = 300) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
       console.log("Wait for " + rand + " seconds");
@@ -91,7 +91,7 @@ export default {
     timerEvent: function () {
       console.log("è scaduto il timer");
       this.tickAudio.pause();
-      this.PlayAlarmSound();
+      this.playAlarmSound();
     },
     getRandomWord: function () {
       return this.words[Math.floor(Math.random() * this.words.length)];

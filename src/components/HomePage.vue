@@ -1,9 +1,10 @@
 <template>
   <v-container 
       fill-height
-      fluid 
-      class="#26c6da">
+       >
+       <v-card flat class="text-center fill-height" width="100%" color="#26c6da">
       <v-row class="text-center fill-height"
+      color="black"
       v-if="!showGame"
       justify="center"
       align="center">
@@ -18,9 +19,11 @@
         />
       <v-btn x-large color="primary" class=" font-weight-bold ma-3" @click="startGame()"> GIOCA! </v-btn>
       <v-spacer></v-spacer>
-      <settngs-panel :minSecondsVal="this.minSeconds" :maxSecondsVal="this.maxSeconds" @changeMinAndMax="changeMinAndMax($event)"/> 
+      <settngs-panel 
+      /> 
     </v-col>
     </v-row>
+    </v-card>
   </v-container>
 </template>
 
