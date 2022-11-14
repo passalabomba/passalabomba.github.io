@@ -34,6 +34,7 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
+              :disabled = "this.letterSet.length <= 0"
               xs="12"
               sm="12"
               x-large
@@ -50,27 +51,38 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <choose-loser-player :value="showChooseLoser"/>
+    </v-row>  
   </v-container>
 </template>
 
 <script>
 import words_from_file from "@/assets/letters.json";
+import letters_and_level_from_file from "@/assets/combinations_and_levels.json";
+
 import audio_file from "@/assets/alarm.mp3";
 import tick_sound from "@/assets/clock_sound.mp3";
 
 import store from "../store";
 import "@/router.js";
+import ChooseLoserPlayer from "./ChooseLoserPlayer.vue";
+
 
 export default {
   name: "HelloWorld",
   components: {
-    //'settngs-panel':SettingsPanel,
+    'choose-loser-player':ChooseLoserPlayer,
   },
   mounted() {
       this.startSession();
+      
   },
   data: () => ({
+    showChooseLoser : false,
     words: words_from_file,
+    letters_and_level : letters_and_level_from_file,
+    uscite : [],
     seconds: null,
     letterSet: null,
     timer: null,
@@ -81,6 +93,7 @@ export default {
     maxSeconds: 300,
     goEnabled: true,
     color: "#44B987",
+
   }),
   methods: {
     setTimer: function (min = 20, max = 300) {
@@ -97,7 +110,7 @@ export default {
       return this.words[Math.floor(Math.random() * this.words.length)];
     },
     startSession: function () {
-      this.letterSet = this.getRandomWord().toUpperCase();
+      this.popLetter();
       this.setTimer(store.getters.minSecondsVal, store.getters.maxSecondsVal);
       console.log(this.timer);
       this.alarmAudio = new Audio(audio_file);
@@ -108,8 +121,8 @@ export default {
     stopSession: function () {
       this.alarmAudio.pause();
       clearTimeout(this.timer);
-      this.tickAudio.pause();
-
+      this.tickAudio.pause(); 
+      if (store.getters.players.length > 0) store.commit("setOpenChooseLoser", true);
       this.letterSet = "";
       this.goEnabled = true;
     },
@@ -125,6 +138,16 @@ export default {
       }
       this.$router.replace("/");
     },
+    getRandomWordFromArray: function (array) {
+      return array[Math.floor(Math.random() * array.length)];
+    },
+    popLetter: function (){
+      var filteredByLevel = this.letters_and_level.filter(letter => letter.quantile <= store.getters.level);
+      var letters = this.getRandomWordFromArray(filteredByLevel);
+      this.uscite.push(letters)
+      this.letterSet = letters.letter_set.toUpperCase();
+      this.letters_and_level = this.letters_and_level.filter( obj => obj.letter_set !== letters.letter_set);
+    }
   },
 };
 </script>

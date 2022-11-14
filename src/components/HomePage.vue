@@ -19,8 +19,11 @@
         />
       <v-btn x-large color="primary" class=" font-weight-bold ma-3" @click="startGame()"> GIOCA! </v-btn>
       <v-spacer></v-spacer>
-      <settngs-panel 
-      /> 
+      <settngs-panel /> 
+      <add-players /> 
+      <v-btn x-large icon color="white" @click="resetSettings()">
+        <v-icon>mdi-restore</v-icon>
+      </v-btn>
     </v-col>
     </v-row>
     </v-card>
@@ -29,23 +32,29 @@
 
 <script>
 import SettingsPanel from './ChooseSettingsPanel.vue'
+import AddPlayersDialog from './AddPlayersDialog.vue'
+import store from "../store";
+
 import '@/router.js'
 
 export default {
   name: "HelloWorld",
   components: {
       'settngs-panel':SettingsPanel,
+      'add-players': AddPlayersDialog
   },
   data: () => ({
     showGame: false
   }),
   methods: {
     startGame: function () {
-      //this.showGame = true
       this.$router.replace('/game')
     },
     playSound: function () {
     },
+    resetSettings: function() {
+      store.commit("resetSettings");
+    }
   },
 };
 </script>
