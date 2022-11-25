@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="propModel" width="600px">
+  <v-dialog v-model="propModel" persistent width="600px">
     <v-card class="mx-auto pa-6" max-width="600" ma outlined>
       <players-list ref="child_pla_list"></players-list>
       <v-card-actions>
@@ -17,7 +17,9 @@ import PlayersList from "./PlayersList.vue";
 import store from "../store";
 
 export default {
-  props: {},
+  props: {
+    expiredTimer:Boolean
+  },
   computed: {
     selectedPlayerItem() {
         return store.getters.selectedPlayer
@@ -42,6 +44,10 @@ export default {
     chooseLooser: function () {
       store.commit("removeLife", this.selectedPlayerItem);
       store.commit("setOpenChooseLoser", false);
+
+      store.commit("addError", {position: this.selectedPlayerItem, state: this.expiredTimer ? 'T' : 'D'})
+      console.log('emitting ...')
+      this.$emit('choosed', this.selectedPlayerItem)
     },
   }
   

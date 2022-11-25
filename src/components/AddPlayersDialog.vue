@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" persistent width="600px">
+  <v-dialog v-model="dialog" persistent >
     <template v-slot:activator="{ on, attrs }">
       <v-btn x-large icon v-bind="attrs" v-on="on" color="white">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </template>
-    <v-card class="mx-auto pa-6" max-width="600" ma outlined>
+    <v-card class="mx-auto pa-6" max-width="400px" max-height="400px" outlined>
       <v-text-field
         justify="center"
         align="center"

@@ -133,7 +133,8 @@ export default {
       { label: "Facile", num_lev: 0, color: "#81C784" },
       { label: "Medio", num_lev: 1, color: "#FFE57F" },
       { label: "Difficile", num_lev: 2, color: "#FB8C00" },
-      { label: "Molto difficile", num_lev: 3, color: "#E53935" }
+      { label: "Molto difficile", num_lev: 3, color: "#E53935" },
+      { label: "Bilanciato", num_lev: -1, color: "#E53935" }
     ],
     players: store.getters.players
   }),

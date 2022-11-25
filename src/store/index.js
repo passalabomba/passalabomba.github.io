@@ -8,11 +8,16 @@ export default new Vuex.Store({
    minSecondsVal: 20,
    maxSecondsVal: 100,
    players: [],
+   playersError: [],
    openChooseLoser: false,
    tickSound : true,
    selectedPlayer: -1,
    life: 3,
-   level: 2
+   level: 1,
+   openTimerError: false,
+   showedTimerError : false,
+   openRepeatError : false,
+   showedRepeatError : false
  },
  getters: {
    minSecondsVal: state => {
@@ -38,10 +43,19 @@ export default new Vuex.Store({
    },
    level: state => {
       return state.level
+   },
+   playersError: state => {
+    return state.playersError
+   },
+   timerErrorVisible: state => {
+    return !state.showedTimerError && state.openTimerError
+   },
+   repeatedErrorVisible: state => {
+    return !state.showedRepeatError && state.openRepeatError
    }
  },
  mutations: {
-   changeMinSeconds (state, min) {
+    changeMinSeconds (state, min) {
       state.minSecondsVal = min
     },
     changeMaxSeconds (state, max) {
@@ -49,10 +63,12 @@ export default new Vuex.Store({
     },
     addPlayer (state, playerName) {
       state.players.push({life:state.life, name:playerName})
+      state.playersError.push({errors:[], name:playerName})
     },
     removePlayer (state, index) {
       if (index > -1) { // only splice array when item is found
          state.players.splice(index, 1); // 2nd parameter means remove one item only
+         state.playersError.splice(index, 1);
        }
     },
     removeLife (state, playerPosition) {
@@ -64,8 +80,16 @@ export default new Vuex.Store({
       state.players = []
       state.minSecondsVal = 20
       state.maxSecondsVal = 100
-      console.log('aa')
-      console.log(state)
+      state.playersError= [],
+      state.openChooseLoser= false,
+      state.tickSound = true,
+      state.selectedPlayer= -1,
+      state.life= 3,
+      state.level= 1,
+      state.openTimerError= false,
+      state.showedTimerError = false,
+      state.openRepeatError = false,
+      state.showedRepeatError = false
     },
     setOpenChooseLoser (state, open) {
       state.openChooseLoser = open
@@ -81,7 +105,27 @@ export default new Vuex.Store({
     },
     setLevel( state, level) {
       state.level = level
+    },
+    addError (state, info) {
+      // info must be an object composed by state (T or D) and playerPosition
+      state.playersError[info.position]["errors"].push(info.state)
+    },
+    openRepeatErrorGIF( state) {
+      state.openRepeatError = true
+    },
+    closeRepeatErrorGIF( state) {
+      state.showedRepeatError = true
+      state.openRepeatError = false
+    },
+    openTimerErrorGIF( state) {
+      state.openTimerError = true
+    },
+    closeTimerErrorGIF( state) {
+      state.showedTimerError = true
+      state.openTimerError = false
     }
+
+
  },
  actions: {}
 });
