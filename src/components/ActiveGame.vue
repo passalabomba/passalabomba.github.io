@@ -52,10 +52,13 @@
       </v-col>
     </v-row>
     <v-row>
-      <choose-loser-player @choosed ="choosedLoser" :expired-timer="this.expiredTimer" />
+      <choose-loser-player
+        @choosed="choosedLoser"
+        :expired-timer="this.expiredTimer"
+      />
     </v-row>
     <v-row>
-      <gif-panel :player-name="this.wrongingPlayer"/>
+      <gif-panel :gif-text="this.GIFText" :gif-image="this.GIFImage" :state="this.errorState"/>
     </v-row>
   </v-container>
 </template>
@@ -83,26 +86,51 @@ export default {
   },
   computed: {
     playersError() {
-      return store.getters.playersError.map(o => o.errors);
-    }    
+      return store.getters.playersError.map((o) => o.errors);
+    },
   },
   watch: {
     playersError(newPlayersError) {
-       // newPlayersError format => [['T'],['T','T'],[]]
-       console.log('newPlayersError',newPlayersError)
-       console.log('bomb', this.expiredTimer)
-       var wrongingPlayerIndexes = newPlayersError
-        .map((obj) => this.containsConsecutiveStates(obj, "D"))
-        .map((isInFault, index) => {return (isInFault) ? index : -1})
-        .filter(indexes => indexes != -1);
+      // newPlayersError format => [['T'],['T','T'],[]]
 
-      this.wrongingPlayer = (wrongingPlayerIndexes.length > 0) ? store.getters.players[wrongingPlayerIndexes[0]].name : ''
-      console.log( this.wrongingPlayer)
-      if (
-        !store.getters.timerErrorVisible &&
-        this.wrongingPlayer !== ''
-      ) {
-        store.commit("openTimerErrorGIF");
+      //CHECK FOR DUPLICATION
+      var wrongingPlayerIndexesDUPL = newPlayersError
+        .map((obj) => this.containsConsecutiveStates(obj, "D"))
+        .map((isInFault, index) => {
+          return isInFault ? index : -1;
+        })
+        .filter((indexes) => indexes != -1);
+
+      if (wrongingPlayerIndexesDUPL.length > 0) {
+        if (!store.getters.repeatedErrorVisible) {
+          var wrongingPlayer = store.getters.players[wrongingPlayerIndexesDUPL[0]].name;
+            this.GIFImage = require('../assets/GIF/ah_non_posso_GIF.png')
+            this.GIFText = wrongingPlayer + ' sei un Salvini. Per caso non hai capito le regole?'
+                        this.errorState = 'D'
+          store.commit("openGIFPanel", "D");
+            store.commit('assignAvatar', {avatar:require('../assets/avatar/salvini_avatar.jpg'), position:wrongingPlayerIndexesDUPL[0]})
+
+        }
+      }
+
+      //CHECK FOR TIMER EXPIRATION
+      var wrongingPlayerIndexesTIMER = newPlayersError
+        .map((obj) => this.containsConsecutiveStates(obj, "T"))
+        .map((isInFault, index) => {
+          return isInFault ? index : -1;
+        })
+        .filter((indexes) => indexes != -1);
+
+      if (wrongingPlayerIndexesTIMER.length > 0) {
+        if (!store.getters.timerErrorVisible) {
+          var wrongingPlayerTIMER = store.getters.players[wrongingPlayerIndexesTIMER[0]].name;
+          
+            this.GIFImage = require('../assets/GIF/presidente.jpg')
+            this.GIFText = 'Signor presidente, ' + wrongingPlayerTIMER + '?! O non ha capito che scorre il tempo o si è addormentato'
+            this.errorState = 'T'
+            store.commit("openGIFPanel", "T");
+            store.commit('assignAvatar', {avatar:require('../assets/avatar/andreotti_avatar.jpeg'), position:wrongingPlayerIndexesTIMER[0]})
+        }
       }
     },
   },
@@ -117,12 +145,12 @@ export default {
     alarmAudio: null,
     tickAudio: null,
     dialog: false,
-    minSeconds: 20,
-    maxSeconds: 300,
     goEnabled: true,
     color: "#44B987",
-    wrongingPlayer: undefined,
-    expiredTimer : false,
+    expiredTimer: false,
+    GIFText : '',
+    GIFImage : '',
+    errorState: '',
     ratioLevels: [
       { level: 0, desiredRatio: 0.55, currentRatio: 0 },
       { level: 1, desiredRatio: 0.25, currentRatio: 0 },
@@ -131,7 +159,7 @@ export default {
     ],
   }),
   methods: {
-    setTimer: function (min = 20, max = 300) {
+    setTimer: function (min = 20, max = 100) {
       var rand = Math.floor(Math.random() * (max - min + 1) + min); //Generate Random number between 5 - 10
       console.log("Wait for " + rand + " seconds");
       this.timer = setTimeout(this.timerEvent, rand * 1000);
@@ -140,7 +168,7 @@ export default {
       console.log("è scaduto il timer");
       this.tickAudio.pause();
       this.playAlarmSound();
-      this.expiredTimer = true
+      this.expiredTimer = true;
     },
     startSession: function () {
       this.popLetter();
@@ -185,9 +213,11 @@ export default {
     popLetter: function () {
       var filteredLetterSetByLevel = this.letters_and_level.filter((letter) => {
         if (store.getters.level != -1) {
-          return (letter.quantile <= store.getters.level) ? true : false;
+          return letter.quantile <= store.getters.level ? true : false;
         } else {
-          return (this.getNextPoppableLevelsList().contains(letter.quantile)) ? true : false;
+          return this.getNextPoppableLevelsList().contains(letter.quantile)
+            ? true
+            : false;
         }
       });
       var letters = this.getRandomWordFromArray(filteredLetterSetByLevel);
@@ -221,10 +251,10 @@ export default {
     },
     choosedLoser(sele) {
       if (this.expiredTimer) {
-        this.expiredTimer = false
+        this.expiredTimer = false;
       }
-      console.log('loserUserPosition', sele)
-    }
+      console.log("loserUserPosition", sele);
+    },
   },
 };
 </script>

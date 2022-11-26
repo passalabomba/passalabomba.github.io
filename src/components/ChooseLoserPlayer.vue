@@ -44,9 +44,7 @@ export default {
     chooseLooser: function () {
       store.commit("removeLife", this.selectedPlayerItem);
       store.commit("setOpenChooseLoser", false);
-
       store.commit("addError", {position: this.selectedPlayerItem, state: this.expiredTimer ? 'T' : 'D'})
-      console.log('emitting ...')
       this.$emit('choosed', this.selectedPlayerItem)
     },
   }

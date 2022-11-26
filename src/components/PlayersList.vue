@@ -3,6 +3,9 @@
     <v-list-item-group v-model="selected" active-class="pink--text" >
       <template v-for="(item, index) in this.players">
         <v-list-item :key="item.name" :disabled="item.life <= 0">
+          <v-list-item-avatar v-if="item.avatar!== undefined">
+            <v-img :src="item.avatar"></v-img>
+          </v-list-item-avatar>
           <template>
             <v-list-item-content>
               <v-list-item-title v-text="item.name"></v-list-item-title>

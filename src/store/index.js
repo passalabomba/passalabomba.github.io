@@ -62,7 +62,7 @@ export default new Vuex.Store({
       state.maxSecondsVal = max
     },
     addPlayer (state, playerName) {
-      state.players.push({life:state.life, name:playerName})
+      state.players.push({life:state.life, name:playerName, avatar:undefined})
       state.playersError.push({errors:[], name:playerName})
     },
     removePlayer (state, index) {
@@ -110,19 +110,24 @@ export default new Vuex.Store({
       // info must be an object composed by state (T or D) and playerPosition
       state.playersError[info.position]["errors"].push(info.state)
     },
-    openRepeatErrorGIF( state) {
-      state.openRepeatError = true
+    closeGIFPanel(state, stateError) {
+      if(stateError === 'D'){
+        state.openRepeatError = false
+        state.showedRepeatError = true
+      } else if(stateError === 'T'){
+        state.openTimerError = false
+        state.showedTimerError = false
+      }
     },
-    closeRepeatErrorGIF( state) {
-      state.showedRepeatError = true
-      state.openRepeatError = false
+    openGIFPanel(state, stateError) {
+      if(stateError === 'D'){
+        state.openRepeatError = true
+      } else if(stateError === 'T'){
+        state.openTimerError = true
+      }
     },
-    openTimerErrorGIF( state) {
-      state.openTimerError = true
-    },
-    closeTimerErrorGIF( state) {
-      state.showedTimerError = true
-      state.openTimerError = false
+    assignAvatar(state, info) {
+      state.players[info.position]["avatar"] = info.avatar
     }
 
 

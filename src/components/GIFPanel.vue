@@ -4,10 +4,10 @@
       <v-img
       class="text--primary mt-2 mb-2 mr-2 ml-2"
       contain
-        src="@/assets/GIF/ah_non_posso_GIF.png"
+      :src="this.gifImage"
       />
       <v-card-text class="text--primary mt-2 mb-2 mr-2 ml-2">
-      <h1 text-center align-center justify-center>{{this.playerName}} sei un Salvini.<br/> Per caso non hai capito le regole? </h1>
+      <h1 text-center align-center justify-center>{{this.gifText}}  </h1>
 
     </v-card-text>
       <v-card-actions>
@@ -22,21 +22,21 @@
 import store from "../store";
 
 export default {
-  props: { playerName:String },
+  props: { gifText:String, gifImage:String, state:String },
   computed: {
     propModel() {
-      return store.getters.timerErrorVisible
+      return (this.state === "D") ? store.getters.repeatedErrorVisible : store.getters.timerErrorVisible 
     },
   },
   name: "GIFPanel",
   components: {
   },
   data: () => ({
-    dialog: false,
+    //dialog: false,
   }),
   methods: {
     closeDialog: function (){
-      store.commit('closeTimerErrorGIF');
+      store.commit('closeGIFPanel', this.state);
     }
   }
 };
