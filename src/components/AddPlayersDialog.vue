@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" width="600px" scrollable>
+  <v-dialog v-model="dialog" width="600px" >
     <template v-slot:activator="{ on, attrs }">
       <v-btn x-large icon v-bind="attrs" v-on="on" color="white">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </template>
-    <v-card class="mx-auto pa-6" max-width="600" ma outlined>
+    <v-card class="mx-auto pa-6" max-width="600px" max-height="600px" ma outlined>
       <v-text-field
         justify="center"
         align="center"
@@ -37,7 +37,7 @@
       >
         Rimuovi giocatore
       </v-btn>
-      <players-list></players-list>
+      <players-list :prefferable-height="this.prefferableHeight"></players-list>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn text @click="dialog = false"> Chiudi </v-btn>
@@ -51,7 +51,6 @@ import PlayersList from "./PlayersList.vue";
 import store from "../store";
 
 export default {
-  props: {},
   created() {
     this.selectedPlayer = store.getters.selectedPlayer;
   },
@@ -76,7 +75,8 @@ export default {
   data: () => ({
     playerName: "",
     dialog: false,
-    selectedPlayer : store.getters.selectedPlayer
+    selectedPlayer : store.getters.selectedPlayer,
+    prefferableHeight: "200px"
   }),
   methods: {
     addPlayer: function () {

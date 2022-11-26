@@ -22,7 +22,7 @@
 import store from "../store";
 
 export default {
-  props: { playerName:String},
+  props: { playerName:String },
   computed: {
     propModel() {
       return store.getters.timerErrorVisible

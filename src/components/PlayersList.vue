@@ -1,6 +1,6 @@
 <template>
-  <v-list two-line>
-    <v-list-item-group v-model="selected" active-class="pink--text" class="v_list_fixed">
+  <v-list two-line style="max-height: 300px" class="overflow-y-auto">
+    <v-list-item-group v-model="selected" active-class="pink--text" >
       <template v-for="(item, index) in this.players">
         <v-list-item :key="item.name" :disabled="item.life <= 0">
           <template>
@@ -33,6 +33,7 @@ export default {
   data: () => ({
     selected: [-1],
   }),
+  props: { prefferableHeight:String },
   computed: {
     selectedItem: {
       get: function () {
