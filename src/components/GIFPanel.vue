@@ -4,7 +4,7 @@
       <v-img
       class="text--primary mt-2 mb-2 mr-2 ml-2"
       contain
-        src="..\assets\GIF\ah_non_posso_GIF.png"
+        src="@\assets\GIF\ah_non_posso_GIF.png"
       />
       <v-card-text class="text--primary mt-2 mb-2 mr-2 ml-2">
       <h1 text-center align-center justify-center>{{this.playerName}} sei un Salvini.<br/> Per caso non hai capito le regole? </h1>
