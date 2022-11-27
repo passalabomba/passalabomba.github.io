@@ -35,4 +35,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - Gestione della tematica (musica, città, personaggi famosi)
 - Miglioramento dell'UI
 - Vincoli alle parole (INIZIO, CENTRO, FINE)
+- Share on social
+- Change name
+
  

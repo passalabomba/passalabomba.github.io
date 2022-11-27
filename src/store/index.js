@@ -116,7 +116,7 @@ export default new Vuex.Store({
         state.showedRepeatError = true
       } else if(stateError === 'T'){
         state.openTimerError = false
-        state.showedTimerError = false
+        state.showedTimerError = true
       }
     },
     openGIFPanel(state, stateError) {
@@ -128,6 +128,12 @@ export default new Vuex.Store({
     },
     assignAvatar(state, info) {
       state.players[info.position]["avatar"] = info.avatar
+    },
+    restartWithSamePlayer(state) {
+      state.players.forEach(player => {
+        player.life = state.life;
+        player.avatar = undefined
+      });
     }
 
 

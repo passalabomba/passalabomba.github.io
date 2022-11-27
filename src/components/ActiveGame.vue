@@ -45,7 +45,7 @@
             STOP
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn xs="12" sm="12" x-large icon @click="goHome()" color="white">
+          <v-btn :disabled="!goEnabled" xs="12" sm="12" x-large icon @click="goHome()" color="white">
             <v-icon>mdi-home</v-icon>
           </v-btn>
         </v-card>
@@ -60,10 +60,14 @@
     <v-row>
       <gif-panel :gif-text="this.GIFText" :gif-image="this.GIFImage" :state="this.errorState"/>
     </v-row>
+    <v-row>
+      <show-winner :winner="this.winnerPlayer" v-model="this.showWinner"/>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+
 import words_from_file from "@/assets/letters.json";
 import letters_and_level_from_file from "@/assets/combinations_and_levels.json";
 
@@ -74,12 +78,14 @@ import store from "../store";
 import "@/router.js";
 import ChooseLoserPlayer from "./ChooseLoserPlayer.vue";
 import GIFPanel from "./GIFPanel.vue";
+import ShowWinnerDialog from "./ShowWinnerDialog.vue";
 
 export default {
   name: "HelloWorld",
   components: {
     "choose-loser-player": ChooseLoserPlayer,
     "gif-panel": GIFPanel,
+    "show-winner" : ShowWinnerDialog
   },
   mounted() {
     this.startSession();
@@ -88,6 +94,9 @@ export default {
     playersError() {
       return store.getters.playersError.map((o) => o.errors);
     },
+    playersLife() {
+      return store.getters.players.map((o) => o.life)
+    }
   },
   watch: {
     playersError(newPlayersError) {
@@ -124,7 +133,6 @@ export default {
       if (wrongingPlayerIndexesTIMER.length > 0) {
         if (!store.getters.timerErrorVisible) {
           var wrongingPlayerTIMER = store.getters.players[wrongingPlayerIndexesTIMER[0]].name;
-          
             this.GIFImage = require('../assets/GIF/presidente.jpg')
             this.GIFText = 'Signor presidente, ' + wrongingPlayerTIMER + '?! O non ha capito che scorre il tempo o si è addormentato'
             this.errorState = 'T'
@@ -133,6 +141,20 @@ export default {
         }
       }
     },
+    playersLife(newPlayersLife) {
+      // newPlayersLife format => [1,2,0,0]
+      var inLifePlayerIndexes = newPlayersLife.map((obj) => (obj > 0) ? true : false)
+        .map((inLife, index) => {
+          return inLife ? index : -1;
+        })
+        .filter((indexes) => indexes != -1);
+      
+      if(inLifePlayerIndexes.length == 1){
+          this.showWinner = true
+          this.winnerPlayer = store.getters.players[inLifePlayerIndexes[0]].name
+          this.$confetti.start();
+      }
+    }
   },
   data: () => ({
     showChooseLoser: false,
@@ -151,6 +173,8 @@ export default {
     GIFText : '',
     GIFImage : '',
     errorState: '',
+    winnerPlayer: '',
+    showWinner : false,
     ratioLevels: [
       { level: 0, desiredRatio: 0.55, currentRatio: 0 },
       { level: 1, desiredRatio: 0.25, currentRatio: 0 },
@@ -249,11 +273,11 @@ export default {
         .filter((l) => l.desiredRatio > l.currentRatio)
         .map((l) => l.level);
     },
-    choosedLoser(sele) {
+    choosedLoser() {
       if (this.expiredTimer) {
         this.expiredTimer = false;
       }
-      console.log("loserUserPosition", sele);
+      
     },
   },
 };
