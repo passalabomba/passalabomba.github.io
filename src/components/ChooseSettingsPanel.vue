@@ -1,12 +1,12 @@
 <template>
   <v-dialog v-model="dialog" persistent width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn x-large icon v-bind="attrs" v-on="on" color="white">
+      <v-btn x-large icon v-bind="attrs" v-on="on" color="#111111">
         <v-icon>mdi-cog</v-icon>
       </v-btn>
     </template>
 
-    <v-card class="mx-auto" max-width="600" outlined shaped>
+    <v-card class="mx-auto" max-width="600" outlined dark color="secondary">
       <v-card-text>
         <v-container>
           <v-row>
@@ -58,11 +58,11 @@
               >
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn
-                    class="white--text ma-5"
+                    class="black--text ma-5"
                     v-bind="attrs"
                     v-on="on"
                     color="primary"
-
+                    
                   >
                     Scegl il livello
                   </v-btn>
@@ -103,8 +103,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false"> Chiudi </v-btn>
-        <v-btn text @click="save"> Salva </v-btn>
+        <v-btn text @click="dialog = false" color="error"> Chiudi </v-btn>
+        <v-btn text @click="save" color="primary"> Salva </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

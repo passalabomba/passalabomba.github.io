@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" width="600px" >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn x-large icon v-bind="attrs" v-on="on" color="white">
+      <v-btn x-large icon v-bind="attrs" v-on="on" color="textcolor">
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </template>
@@ -40,7 +40,7 @@
       <players-list :prefferable-height="this.prefferableHeight"></players-list>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false"> Chiudi </v-btn>
+        <v-btn text @click="dialog = false" color="error"> Chiudi </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

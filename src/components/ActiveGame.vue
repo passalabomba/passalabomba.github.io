@@ -10,13 +10,14 @@
         justify="center"
         class="fill-height"
       >
-        <v-card class="fill-height" color="#26c6da" dark>
+        <v-card class="fill-height" color="primary" dark>
           <v-card-text
+            color="secondary"
             cols="12"
             xs="12"
             sm="12"
             md="6"
-            class="text-h1 font-weight-bold text-center"
+            class="text-h1 font-weight-bold text-center secondary--text"
           >
             {{ this.letterSet }}
           </v-card-text>
@@ -25,7 +26,7 @@
             xs="12"
             sm="12"
             x-large
-            color="primary"
+            color="secondary"
             class="font-weight-bold ma-3"
             :disabled="!goEnabled"
             @click="startSession()"
@@ -45,7 +46,7 @@
             STOP
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn :disabled="!goEnabled" xs="12" sm="12" x-large icon @click="goHome()" color="white">
+          <v-btn :disabled="!goEnabled" xs="12" sm="12" x-large icon @click="goHome()" color="textcolor">
             <v-icon>mdi-home</v-icon>
           </v-btn>
         </v-card>
