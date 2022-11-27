@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" persistent width="600px">
 
-    <v-card class="mx-auto" max-width="600" outlined shaped>
+    <v-card class="mx-auto" max-width="600" outlined >
     <v-img
       class="text--primary mt-2 mb-2 mr-2 ml-2"
       contain
@@ -10,12 +10,10 @@
       <v-card-text>
           Complimenti {{this.winner}}! Sei il vincitore
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text @click="goHome()"> Torna alla Home </v-btn>
-        <v-spacer/>
-        <v-btn text @click="startWithSamePlayers()"> Ricomincia con gli stessi giocatori </v-btn>
-      </v-card-actions>
+     
+        <v-btn block text align-center justify-center text-center @click="goHome()" class="mt-2 mb-2"> Torna alla Home </v-btn>
+    
+        <v-btn block text align-center justify-center text-center @click="startWithSamePlayers()" class="mb-2"> Ricomincia con gli <br/> stessi giocatori </v-btn>
     </v-card>
   </v-dialog>
 </template>
