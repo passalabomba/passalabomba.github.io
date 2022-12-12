@@ -1,18 +1,18 @@
 <template>
   <v-dialog v-model="propModel" max-width="800px" persistent  >
-    <v-card class="mt-2 mb-2 mr-2 ml-2"  outlined  >
+    <v-card class="" outlined color="white">
       <v-img
       class="text--primary mt-2 mb-2 mr-2 ml-2"
       contain
       :src="this.gifImage"
       />
-      <v-card-text class="text--primary mt-2 mb-2 mr-2 ml-2">
-      <h1 text-center align-center justify-center>{{this.gifText}}  </h1>
+      <v-card-text class="text--primary">
+      <h2 text-center align-center justify-center>{{this.gifText}}  </h2>
 
     </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="closeDialog()"> Chiudi </v-btn>
+        <v-btn text @click="closeDialog()" color="error"> Chiudi </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

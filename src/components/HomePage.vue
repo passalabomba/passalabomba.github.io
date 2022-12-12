@@ -1,6 +1,7 @@
 <template>
   <v-container 
       fill-height
+      fluid
        >
        <v-card flat class="text-center fill-height" width="100%" color="primary">
       <v-row class="text-center fill-height"

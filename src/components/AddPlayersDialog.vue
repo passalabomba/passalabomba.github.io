@@ -20,18 +20,19 @@
         outlined
         rounded
         text
-        :disabled="!isDisabled"
+        :disabled="!isAddDisabled"
         @click="addPlayer()"
       >
         Aggiungi giocatore
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn
         justify="center"
         align="center"
                 class="mb-4"
         outlined
         rounded
-        :disabled="selectedPlayer == undefined"
+        :disabled="selectedPlayer === -1"
         text
         @click="removePlayer()"
       >
@@ -53,9 +54,10 @@ import store from "../store";
 export default {
   created() {
     this.selectedPlayer = store.getters.selectedPlayer;
+    console.log(this.selectedPlayer)
   },
   computed: {
-    isDisabled() {
+    isAddDisabled() {
       return this.playerName.length > 0 && !(store.getters.players.some(value => value.name === this.playerName));
     },
     stateSelectedPlayer() {

@@ -80,13 +80,15 @@ import "@/router.js";
 import ChooseLoserPlayer from "./ChooseLoserPlayer.vue";
 import GIFPanel from "./GIFPanel.vue";
 import ShowWinnerDialog from "./ShowWinnerDialog.vue";
+//import BombExplosion from "./BombExplosion.vue";
 
 export default {
   name: "HelloWorld",
   components: {
     "choose-loser-player": ChooseLoserPlayer,
     "gif-panel": GIFPanel,
-    "show-winner" : ShowWinnerDialog
+    "show-winner" : ShowWinnerDialog,
+    //"bomb-explosion" : BombExplosion
   },
   mounted() {
     this.startSession();

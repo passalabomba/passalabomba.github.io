@@ -134,6 +134,14 @@ export default new Vuex.Store({
         player.life = state.life;
         player.avatar = undefined
       });
+      state.playersError= [],
+      state.openChooseLoser= false,
+      state.tickSound = true,
+      state.selectedPlayer= -1,
+      state.openTimerError= false,
+      state.showedTimerError = false,
+      state.openRepeatError = false,
+      state.showedRepeatError = false
     }
 
 
