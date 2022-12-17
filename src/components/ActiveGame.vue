@@ -52,18 +52,18 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
+    <span>
       <choose-loser-player
         @choosed="choosedLoser"
         :expired-timer="this.expiredTimer"
       />
-    </v-row>
-    <v-row>
+    </span>
+    <span>
       <gif-panel :gif-text="this.GIFText" :gif-image="this.GIFImage" :state="this.errorState"/>
-    </v-row>
-    <v-row>
+    </span>
+    <span>
       <show-winner :winner="this.winnerPlayer" v-model="this.showWinner"/>
-    </v-row>
+    </span>
   </v-container>
 </template>
 
@@ -285,3 +285,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.col-12 {
+  padding: 0;
+}
+</style>
