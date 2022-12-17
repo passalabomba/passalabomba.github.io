@@ -20,3 +20,9 @@ export default {
   }),
 };
 </script>
+<style>
+/** Hide scrollbar */
+html {
+  overflow: hidden
+}
+</style>
