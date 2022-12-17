@@ -1,9 +1,6 @@
 <template>
-  <v-container 
-      fill-height
-      fluid
-       >
-       <v-card flat class="text-center fill-height" width="100%" color="primary">
+  <v-container fluid fill-height>
+       <v-card fluid flat class="text-center fill-height" width="100%" color="primary">
       <v-row class="text-center fill-height"
       color="black"
       v-if="!showGame"
@@ -61,7 +58,7 @@ export default {
 </script>
 
 <style>
-.v-container {
-  background-color: green;
+.container {
+  padding: 0
 }
 </style>
